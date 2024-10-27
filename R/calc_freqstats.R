@@ -197,7 +197,17 @@ for(xx in 1:npops){
 
 ## ----- STATISTICS ----------------------------------------------------
   ####TAJIMA ####################################
-  if(length(data)!=0){ n <- ceiling(data_length[xx]/data_total_length)}else{n <- samplesize[xx]}
+  if(length(data)!=0){
+       n <- ceiling(data_length[xx]/data_total_length)
+  }else{
+       if(is.na(samplesize[xx])){
+            n <- 1
+       }else if(samplesize[xx] > 0){
+            n <- samplesize[xx]
+       }else {
+            n <- 1
+       }
+  }
   coef       <- init_coef(n)
   Taj_D[xx]  <- tajima_d(THETA_ERG["thetaT",xx],THETA_ERG["S",xx],coef)
   ############################################### 
